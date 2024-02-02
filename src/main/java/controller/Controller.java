@@ -75,9 +75,8 @@ public class Controller {
     public void addPagina(String titolo,String nomeAutore) throws SQLException {
         WikiImplementazionePostgresDao wikiImplementazionePostgresDao = new WikiImplementazionePostgresDao();
         wikiImplementazionePostgresDao.addPagina(titolo,nomeAutore);
+        System.out.println("mammt");
     }
-
-
 
 
     public void cercaPagina(String titolo,ArrayList<String> parolePaginaCercata) throws SQLException {
