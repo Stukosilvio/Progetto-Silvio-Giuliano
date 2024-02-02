@@ -18,6 +18,11 @@ public class Utente {
         this.email=email;
     }
 
+    public Utente(String nome)
+    {
+        this.username=nome;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -31,4 +36,8 @@ public class Utente {
     }
 
     ArrayList<String> modificheTesto = new ArrayList<>();
+
+    public String getNomeUtente() {
+        return username;
+    }
 }

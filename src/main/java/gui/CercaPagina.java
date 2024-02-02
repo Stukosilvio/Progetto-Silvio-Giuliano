@@ -59,7 +59,7 @@ public class CercaPagina {
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nascondiFinestra();
+                nascondiFinestra(frameChiamante);
             }
             });
 
@@ -106,13 +106,47 @@ public class CercaPagina {
         modificaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (controller.getUtente() == null || controller.getUtente().getNomeUtente() == null) {
+                    JOptionPane.showMessageDialog(null, "Registrati");
+                } else {
+                    ModificaPagina modificaPagina = new ModificaPagina(frameCerca, controller);
+                    modificaPagina.mostraFinestra();
+                    frameCerca.setEnabled(false);
+                }
 
             }
         });
         searchButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Cerca!");
+            public void actionPerformed(ActionEvent e)
+            {
+                String titoloPaginaDaCercare = searchBar.getText();
+                ArrayList<String> parolePaginaDaCercare = new ArrayList<>();
+                StringBuilder risultatoFinale = new StringBuilder("<html>");
+                try {
+                    //questo metodo mi rimpie parolePaginaDaCercare, ricorda sono parole però la traccia
+                    //richiede che con la ricerca ci sia pure il vedere i collegamenti quindi adesso
+                    //mi cerco i collegamenti relativi ad ogni parola
+                    controller.cercaPagina(titoloPaginaDaCercare,parolePaginaDaCercare);
+                    for (String parola: parolePaginaDaCercare) {
+                         //adesso mi scorro le parole e vedo quale si questa ha dei collegamenti
+                        //se il collegamento è != null allora sottolineo la parola all'interno del testo.
+                        String link = controller.ottieniCollegamentoParola(titoloPaginaDaCercare,parola);
+                        if(link != null)
+                        {
+                            risultatoFinale.append("<a href=\"").append(link).append("\">").append(parola).append("</a> ");
+                        }
+                        else
+                        {
+                            risultatoFinale.append(parola).append(" ");
+                        }
+                    }
+                    risultatoFinale.append("</html>");
+                    risultatiTextArea.setText(String.valueOf(risultatoFinale));
+                    modificaButton.setVisible(true);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,"Errore nella ricerca");
+                }
             }
         });
     }
@@ -125,10 +159,11 @@ public class CercaPagina {
         });
     }
 
-    public void nascondiFinestra() {
+    public void nascondiFinestra(JFrame frameChiamante) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                frameChiamante.setEnabled(true);
                 frameCerca.setVisible(false);
             }
         });

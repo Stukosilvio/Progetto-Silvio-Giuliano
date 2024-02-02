@@ -10,6 +10,16 @@ public class Autore extends Utente{
                 super(nome,password, email);
         }
 
+        public Autore(String nome)
+        {
+                super(nome);
+        }
+
+        @Override
+        public String getUsername() {
+                return super.getUsername();
+        }
+
         ArrayList<Pagina> pagineCreate = new ArrayList<>();
 
 

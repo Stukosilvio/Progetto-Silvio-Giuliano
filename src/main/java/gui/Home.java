@@ -41,6 +41,9 @@ public class Home {
         addButtonToPanel(buttonPanel, creaPagina, gbc, 0, 0);
 
         JButton searchButton = new JButton("Crea Pagina");
+
+        JButton notificheButton = new JButton("Controlla Notifiche");
+        addButtonToPanel(buttonPanel, notificheButton, gbc, 4, 0);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,10 +56,19 @@ public class Home {
                     }
             }
         });
+
+        notificheButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //VisualizzaNotifiche visualizzaNotifiche = new VisualizzaNotifiche();
+                //visualizzaNotifiche.mostraFinestra();
+            }
+        });
         creaPagina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                     CercaPagina cercaPagina = new CercaPagina(frame,controller);
+                    frame.setEnabled(false);
                     cercaPagina.mostraFinestra();
             }
         });
