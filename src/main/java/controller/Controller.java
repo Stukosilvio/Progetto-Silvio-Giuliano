@@ -76,6 +76,7 @@ public class Controller {
         WikiImplementazionePostgresDao wikiImplementazionePostgresDao = new WikiImplementazionePostgresDao();
         wikiImplementazionePostgresDao.addPagina(titolo,nomeAutore);
         System.out.println("mammt");
+        System.out.println("mAMMMT");
     }
 
 
